@@ -1,11 +1,18 @@
-const username = document.querySelector(".username");
-const email = document.querySelector(".email");
-const number = document.querySelector(".number");
-const form = document.querySelector("form");
-form.addEventListener("submit", handleFormSubmit);
+const username = document.querySelector("#username");
+const email = document.querySelector("#email");
+const phone = document.querySelector("#phone");
+const ulist = document.querySelector("#details");
+
 function handleFormSubmit(event) {
   event.preventDefault();
-  localStorage.setItem("name", username.value);
-  localStorage.setItem("email", email.value);
-  localStorage.setItem("number", number.value);
+  const li = document.createElement("li");
+  li.innerHTML = username.value + "-" + email.value + "-" + phone.value;
+  ulist.appendChild(li);
+  const obj = {
+    name: username.value,
+    email: email.value,
+    phone: phone.value,
+  };
+
+  localStorage.setItem(email.value, JSON.stringify(obj));
 }

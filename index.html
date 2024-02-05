@@ -7,17 +7,18 @@
   </head>
   <body>
     <div>
-      <form>
+      <form onsubmit="handleFormSubmit(event)">
         <label for="username">Username: </label>
-        <input type="text" class="username" name="username" />
+        <input type="text" id="username" name="username" />
         <label for="email">Email: </label>
-        <input type="email" class="email" name="email" />
+        <input type="email" id="email" name="email" />
         <label for="number">Number: </label>
-        <input type="tel" class="number" name="number" />
+        <input type="tel" id="phone" name="number" />
         <label>
           <button type="submit">Submit</button>
         </label>
       </form>
+      <ul id="details"></ul>
     </div>
   </body>
   <script src="script.js"></script>
