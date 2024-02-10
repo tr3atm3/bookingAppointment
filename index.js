@@ -5,7 +5,7 @@ const ul = document.querySelector("#list");
 
 window.addEventListener("DOMContentLoaded", function (e) {
   e.preventDefault();
-  // console.log("hi");
+
   axios
     .get(
       "https://crudcrud.com/api/42e1cbf5822e4b248c09368b6731885a/assignmentData"
