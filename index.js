@@ -3,6 +3,22 @@ const email = document.querySelector("#email");
 const phone = document.querySelector("#phone");
 const ul = document.querySelector("#list");
 
+window.addEventListener("DOMContentLoaded", function (e) {
+  e.preventDefault();
+  // console.log("hi");
+  axios
+    .get(
+      "https://crudcrud.com/api/42e1cbf5822e4b248c09368b6731885a/assignmentData"
+    )
+    .then((res) => {
+      console.log(res);
+      for (let i = 0; i < res.data.length; i++) {
+        let list = buildLi(res.data[i]);
+        ul.appendChild(list);
+      }
+    });
+});
+
 function handleFormSubmit(event) {
   event.preventDefault();
   const obj = {
@@ -10,6 +26,20 @@ function handleFormSubmit(event) {
     email: email.value,
     phone: phone.value,
   };
+  let list = buildLi(obj);
+  ul.appendChild(list);
+  axios.post(
+    "https://crudcrud.com/api/42e1cbf5822e4b248c09368b6731885a/assignmentData",
+    obj
+  );
+
+  username.value = "";
+  email.value = "";
+  phone.value = "";
+}
+
+// const deletebtn = document.querySelector(".Delete");
+function buildLi(obj) {
   const li = document.createElement("li");
   const del = document.createElement("button");
 
@@ -18,9 +48,8 @@ function handleFormSubmit(event) {
     event.preventDefault();
     const emailTo =
       event.target.parentElement.firstChild.textContent.split(" - ");
-    // console.log(emailTo[1]);
+
     event.target.parentElement.style.display = "none";
-    localStorage.removeItem(emailTo[1]);
   });
   const edit = document.createElement("button");
   edit.innerHTML = "Edit";
@@ -32,17 +61,9 @@ function handleFormSubmit(event) {
     email.value = emailTo[1];
     phone.value = emailTo[2];
     event.target.parentElement.style.display = "none";
-    localStorage.removeItem(emailTo[1]);
   });
-  li.innerHTML = username.value + " - " + email.value + " - " + phone.value;
+  li.innerHTML = obj.username + " - " + obj.email + " - " + obj.phone;
   li.appendChild(del);
   li.appendChild(edit);
-  ul.appendChild(li);
-  localStorage.setItem(email.value, JSON.stringify(obj));
-
-  username.value = "";
-  email.value = "";
-  phone.value = "";
+  return li;
 }
-
-// const deletebtn = document.querySelector(".Delete");
